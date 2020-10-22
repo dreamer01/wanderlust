@@ -3,7 +3,7 @@ export default {
   TabNavigator: 'TabNavigator',
   TravelNavigator: 'TravelNavigator',
   FlightsNavigator: 'FlightsNavigator',
-  ChartbotNavigator: 'ChartbotNavigator',
+  ChatbotNavigator: 'ChatbotNavigator',
   HotelsNavigator: 'HotelsNavigator',
   ProfileNavigator: 'ProfileNavigator',
   AuthLoadingView: 'AuthLoadingView',
@@ -13,9 +13,9 @@ export default {
   ForgotPasswordView: 'ForgotPasswordView',
   TravelFeedView: 'TravelFeedView',
   FlightsFeedView: 'FlightsFeedView',
-  ChartbotView: 'ChartbotView',
+  ChatbotView: 'ChatbotView',
   HotelsFeedView: 'HotelsFeedView',
   ProfileView: 'ProfileView',
   FindFlightView: 'FindFlightView',
-  FindHotelView: 'FindHotelView'
-}
+  FindHotelView: 'FindHotelView',
+};
