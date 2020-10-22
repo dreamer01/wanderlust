@@ -1,40 +1,49 @@
-import React, { Component } from 'react'
-import { SafeAreaView, View, Image, Text, TextInput } from 'react-native'
-import PropTypes from 'prop-types'
-import { NavigationActions } from 'react-navigation'
+import React, {Component} from 'react';
+import {SafeAreaView, View, Image, Text, TextInput} from 'react-native';
+import {NavigationActions} from 'react-navigation';
+import AsyncStorage from '@react-native-community/async-storage';
 
-import Routes from '../../../Navigations/Routes'
-import I18n from '../../../localization/i18n'
-import { Icons } from '../../../Constants/Assets'
-import { Places, Place } from '../../../Constants/Constants'
-import AppButton from '../../../Components/base-componets/AppButton'
-import TitleNavigationHeader from '../../../Components/navigation-header/TitleNavigationHeader'
-import ManageKeyboardScrollView from '../../../Constants/ManageKeyboardScrollView'
-import PlaceCollectionView from '../../../Components/PlaceCollectionView'
+import Routes from '../../../Navigations/Routes';
+import I18n from '../../../localization/i18n';
+import auth0 from '../../../Config/auth0';
+import {Icons} from '../../../Constants/Assets';
+import {Places, Place} from '../../../Constants/Constants';
+import AppButton from '../../../Components/base-componets/AppButton';
+import TitleNavigationHeader from '../../../Components/navigation-header/TitleNavigationHeader';
+import ManageKeyboardScrollView from '../../../Constants/ManageKeyboardScrollView';
+import PlaceCollectionView from '../../../Components/PlaceCollectionView';
 
-import styles from './styles'
+import styles from './styles';
 
 class ProfileView extends Component {
   static navigationOptions = {
-    header: null
-  }
+    header: null,
+  };
 
   state = {
     name: 'Maahi Bhama',
     email: 'maahibhama@gmail.com',
-    password: 'way2sucess'
-  }
+    password: 'way2sucess',
+  };
 
-  onClickRightButton = this.onClickRightButton.bind(this)
-  logoutButtonAction = this.logoutButtonAction.bind(this)
+  onClickRightButton = this.onClickRightButton.bind(this);
+  logoutButtonAction = this.logoutButtonAction.bind(this);
 
-  onClickRightButton () {}
+  onClickRightButton() {}
 
   logoutButtonAction() {
-    this.props.navigation.dispatch(NavigationActions.navigate({ routeName: Routes.AuthNavigator }))
+    // TODO: Uncomment currently commented to avoid popups
+    // auth0.webAuth.clearSession().catch(error => console.log(error));
+    AsyncStorage.clear()
+      .then(() =>
+        this.props.navigation.dispatch(
+          NavigationActions.navigate({routeName: Routes.AuthNavigator}),
+        ),
+      )
+      .catch(error => console.log(error));
   }
 
-  render () {
+  render() {
     return (
       <SafeAreaView style={styles.container}>
         <TitleNavigationHeader
@@ -46,15 +55,14 @@ class ProfileView extends Component {
         />
         <ManageKeyboardScrollView
           keyboardShouldPersistTaps={'always'}
-          contentContainerStyle={styles.keyboardAvoidView}
-        >
+          contentContainerStyle={styles.keyboardAvoidView}>
           {this.renderMiddleView()}
         </ManageKeyboardScrollView>
       </SafeAreaView>
-    )
+    );
   }
 
-  renderMiddleView () {
+  renderMiddleView() {
     return (
       <View style={styles.middleView}>
         {this.renderProfileInfoView()}
@@ -64,29 +72,29 @@ class ProfileView extends Component {
         {this.renderVisitedPlaces()}
         {this.renderLogoutButton()}
       </View>
-    )
+    );
   }
 
-  renderProfileInfoView () {
+  renderProfileInfoView() {
     return (
       <View style={styles.profileView}>
         <View style={styles.imageContainer}>
-        <Image
-          source={{ uri: Place.url }}
-          resizeMode={'cover'}
-          resizeMethod={'resize'}
-          style={styles.profileImage}
-        />
+          <Image
+            source={{uri: Place.url}}
+            resizeMode={'cover'}
+            resizeMethod={'resize'}
+            style={styles.profileImage}
+          />
         </View>
         <View style={styles.titleDetailsView}>
           <Text style={styles.titleText}>{'Maahi Bhama'}</Text>
           <Text style={styles.subtitleText}>{'A developer'}</Text>
         </View>
       </View>
-    )
+    );
   }
 
-  renderNameInput () {
+  renderNameInput() {
     return (
       <TextInput
         underlineColorAndroid={'transparent'}
@@ -96,16 +104,16 @@ class ProfileView extends Component {
         returnKeyType={'next'}
         autoCorrect={false}
         style={styles.inputViewStyle}
-        onChangeText={text => this.setState({ email: text })}
+        onChangeText={text => this.setState({email: text})}
         onSubmitEditing={event => {
-          this.refs.emailTextField.focus()
+          this.refs.emailTextField.focus();
         }}
         value={this.state.name}
       />
-    )
+    );
   }
 
-  renderEmailAddress () {
+  renderEmailAddress() {
     return (
       <TextInput
         underlineColorAndroid={'transparent'}
@@ -116,16 +124,16 @@ class ProfileView extends Component {
         returnKeyType={'next'}
         autoCorrect={false}
         style={styles.inputViewStyle}
-        onChangeText={text => this.setState({ email: text })}
+        onChangeText={text => this.setState({email: text})}
         onSubmitEditing={event => {
-          this.refs.passwordTextField.focus()
+          this.refs.passwordTextField.focus();
         }}
         value={this.state.email}
       />
-    )
+    );
   }
 
-  renderPasswordInput () {
+  renderPasswordInput() {
     return (
       <TextInput
         underlineColorAndroid={'transparent'}
@@ -136,21 +144,21 @@ class ProfileView extends Component {
         autoCorrect={false}
         secureTextEntry={!this.state.isShowingPassword}
         style={styles.inputViewStyle}
-        onChangeText={text => this.setState({ password: text })}
+        onChangeText={text => this.setState({password: text})}
         onSubmitEditing={this.signInButtonAction}
         value={this.state.password}
       />
-    )
+    );
   }
 
-  renderVisitedPlaces () {
+  renderVisitedPlaces() {
     return (
       <PlaceCollectionView
         navigation={this.props.navigation}
         data={Places}
         headerTitle={I18n.t('profile02')}
       />
-    )
+    );
   }
 
   renderLogoutButton() {
@@ -161,7 +169,7 @@ class ProfileView extends Component {
         styles={styles.logoutButtonStyle}
         textStyles={styles.logoutButtonTextStyle}
       />
-    )
+    );
   }
 }
-export default ProfileView
+export default ProfileView;

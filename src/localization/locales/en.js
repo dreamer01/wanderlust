@@ -27,7 +27,7 @@ export default {
   flights11: 'Fly Out',
   flights12: 'Fly Back',
   flights13: 'Passengers',
-  chartbot01: 'Chartbot',
+  chatbot01: 'Chatbot',
   hotels01: 'Hotels',
   hotels02: 'Where to?',
   hotels03: 'Near You',
@@ -37,5 +37,5 @@ export default {
   travel02: 'Enjoy your life with us!',
   travel03: 'Top Cities',
   travel04: 'Blogs',
-  travel05: 'Search Your Favorite Place'
-}
+  travel05: 'Search Your Favorite Place',
+};
