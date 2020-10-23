@@ -1,81 +1,52 @@
-import React, { Component } from 'react';
-import { View, StyleSheet, StatusBar } from 'react-native';
-import PropTypes from "prop-types";
+import React, {useState, useEffect} from 'react';
+import NetInfo from '@react-native-community/netinfo';
+import {StatusBar, SafeAreaView} from 'react-native';
+import {ApolloProvider} from '@apollo/client';
 
+import {UserProvider} from '../../Utils/userContext';
+import makeApolloClient from '../../Config/apollo';
 import AppNavigation from '../../Navigations/AppNavigation';
-import AppAlert from '../../Components/Alerts/AppAlert';
 import Loader from '../../Components/Loading/Loader';
-import { Color } from '../../Constants/Colors';
 
-export default class App extends Component {
+import styles from './styles';
 
-    static childContextTypes = {
-        showAlert: PropTypes.func,
-        presentActivityIndicator: PropTypes.func,
-        dismissActivityIndicator: PropTypes.func
-    }
+const App = () => {
+  const [client, setClient] = useState(null);
+  const [isOnline, setOnline] = useState(true);
 
-    state = {
-        showAppAlert: false,
-        activityIndicatorVisible: false
-    }
+  useEffect(() => {
+    setClient(makeApolloClient());
+  }, []);
 
-    getChildContext() {
-        return {
-            presentActivityIndicator: this.presentActivityIndicator.bind(this),
-            dismissActivityIndicator: this.dismissActivityIndicator.bind(this),
-            showAlert: this.showAlert.bind(this)
-        };
-    }
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener(state => {
+      setOnline(state.isConnected);
+    });
+    return unsubscribe();
+  });
 
-    presentActivityIndicator() {
-        this.setState({
-            activityIndicatorVisible: true
-        });
-    }
-
-    dismissActivityIndicator() {
-        this.setState({
-            activityIndicatorVisible: false
-        });
-    }
-
-    showAlert({ title, message = "" }) {
-        this.setState({
-            showAppAlert: true,
-            appAlertTitle: title,
-            appAlertMessage: message
-        });
-    }
-
-    render() {
-        return (
-            <View style={styles.container}>
-               <StatusBar barStyle="light-content" />
-                <Loader isLoading={this.state.activityIndicatorVisible} />
-                {this.renderAppAlert()}
+  return (
+    <SafeAreaView style={styles.container}>
+      <StatusBar />
+      {isOnline ? (
+        <>
+          {client ? (
+            <ApolloProvider client={client}>
+              <UserProvider>
                 <AppNavigation />
-            </View>
-        )
-    }
+              </UserProvider>
+            </ApolloProvider>
+          ) : (
+            <Loader />
+          )}
+        </>
+      ) : (
+        <View>
+          <Text>Offline</Text>
+        </View>
+      )}
+    </SafeAreaView>
+  );
+};
 
-    renderAppAlert() {
-        if (this.state.showAppAlert === true) {
-            return (
-                <AppAlert showAlert={this.state.showAppAlert}
-                    title={this.state.appAlertTitle}
-                    message={this.state.appAlertMessage}
-                    callerView={this}
-                />)
-        } else {
-            return null
-        }
-    }
-}
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: Color.themeBackground
-    }
-})
+export default App;

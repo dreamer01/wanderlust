@@ -33,7 +33,7 @@ class ProfileView extends Component {
 
   logoutButtonAction() {
     // TODO: Uncomment currently commented to avoid popups
-    // auth0.webAuth.clearSession().catch(error => console.log(error));
+    // auth0.webAuth.clearSession({}).catch(error => console.log(error));
     AsyncStorage.clear()
       .then(() =>
         this.props.navigation.dispatch(
