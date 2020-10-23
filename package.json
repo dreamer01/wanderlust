@@ -8,7 +8,12 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@apollo/client": "^3.2.5",
+    "@apollo/link-context": "^2.0.0-beta.3",
+    "@apollo/link-error": "^2.0.0-beta.3",
     "@react-native-community/async-storage": "^1.12.1",
+    "@react-native-community/netinfo": "^5.9.7",
+    "graphql": "^15.3.0",
     "react": "16.8.6",
     "react-native": "0.60.5",
     "react-native-auth0": "2.0.0",
@@ -16,7 +21,8 @@
     "react-native-gesture-handler": "^1.4.1",
     "react-native-i18n": "^2.0.15",
     "react-native-screens": "^2.10.1",
-    "react-navigation": "^3.12.0"
+    "react-navigation": "^3.12.0",
+    "subscriptions-transport-ws": "^0.9.18"
   },
   "devDependencies": {
     "@babel/core": "7.5.5",
