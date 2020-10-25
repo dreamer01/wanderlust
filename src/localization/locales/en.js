@@ -33,9 +33,10 @@ export default {
   hotels03: 'Near You',
   hotels04: 'Best Offer',
   hotels05: 'World Top Hotels',
+  hotels06: 'Book',
   travel01: 'Travel',
   travel02: 'Enjoy your life with us!',
   travel03: 'Top Cities',
   travel04: 'Blogs',
-  travel05: 'Search Your Favorite Place',
+  travel05: 'Search Your Favorite City',
 };
