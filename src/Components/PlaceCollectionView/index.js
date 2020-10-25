@@ -1,34 +1,34 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
-import { View, FlatList } from 'react-native'
+import React, {PureComponent} from 'react';
+import PropTypes from 'prop-types';
+import {View, FlatList} from 'react-native';
 
-import PlaceItemView from './PlaceItemView'
-import ItemHeaderView from './ItemHeaderView'
-import styles from './styles'
+import PlaceItemView from './PlaceItemView';
+import ItemHeaderView from './ItemHeaderView';
+import styles from './styles';
 
 export default class PlaceCollectionView extends PureComponent {
   static propTypes = {
     data: PropTypes.array,
     headerTitle: PropTypes.string,
-    navigation: PropTypes.object.isRequired
-  }
+    navigation: PropTypes.object.isRequired,
+  };
 
   static defaultProps = {
     data: [],
-    headerTitle: ''
-  }
+    headerTitle: '',
+  };
 
-  renderItem = this.renderItem.bind(this)
+  renderItem = this.renderItem.bind(this);
 
-  onClickSeeAll () {
+  onClickSeeAll() {
     // this.props.navigation.navigate(Routes.Featured)
   }
 
-  onTouchCategory (item) {
+  onTouchCategory(item) {
     // this.props.navigation.navigate(Routes.Featured)
   }
 
-  render () {
+  render() {
     return (
       <View style={styles.containerView}>
         <ItemHeaderView title={this.props.headerTitle} />
@@ -37,22 +37,22 @@ export default class PlaceCollectionView extends PureComponent {
           data={this.props.data}
           horizontal
           renderItem={this.renderItem}
-          keyExtractor={(item, index) => item.id}
+          keyExtractor={(item, index) => item.name}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.tableView}
         />
       </View>
-    )
+    );
   }
 
-  renderItem ({ item }) {
+  renderItem({item}) {
     return (
       <PlaceItemView
         info={item}
         onTouch={() => {
-          this.onTouchCategory(item)
+          this.onTouchCategory(item);
         }}
       />
-    )
+    );
   }
 }

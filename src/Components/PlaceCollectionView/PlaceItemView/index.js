@@ -1,37 +1,35 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
-import { TouchableHighlight, Text, ImageBackground, View } from 'react-native'
+import React, {PureComponent} from 'react';
+import PropTypes from 'prop-types';
+import {TouchableHighlight, Text, ImageBackground, View} from 'react-native';
 
-import styles from '../styles'
+import styles from '../styles';
 
 export default class PlaceItemView extends PureComponent {
   static propTypes = {
     info: PropTypes.object.isRequired,
-    onTouch: PropTypes.func
-  }
+    onTouch: PropTypes.func,
+  };
 
   static defaultProps = {
-    onTouch: () => {}
-  }
+    onTouch: () => {},
+  };
 
-  render () {
+  render() {
     return (
       <TouchableHighlight
         onPress={this.props.onTouch}
         underlayColor={'transparent'}
-        style={styles.touchView}
-      >
+        style={styles.touchView}>
         <ImageBackground
-          source={{ uri: this.props.info.image }}
+          source={{uri: this.props.info.cover}}
           resizeMode={'cover'}
           resizeMethod={'resize'}
-          style={styles.container}
-        >
+          style={styles.container}>
           <View style={styles.textContainer}>
             <Text style={styles.titleTextStyle}>{this.props.info.name}</Text>
           </View>
         </ImageBackground>
       </TouchableHighlight>
-    )
+    );
   }
 }

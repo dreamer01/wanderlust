@@ -1,27 +1,27 @@
-import { StyleSheet } from 'react-native'
-import { Color } from '../../Constants/Colors'
-import { AppFont } from '../../Constants/Fonts'
-import AppStyles from '../../Constants/AppStyles'
+import {StyleSheet} from 'react-native';
+import {Color} from '../../Constants/Colors';
+import {AppFont} from '../../Constants/Fonts';
+import AppStyles from '../../Constants/AppStyles';
 
 export default StyleSheet.create({
   tableView: {
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
   },
   container: {
-    borderRadius: 15,  
+    borderRadius: 15,
     overflow: 'hidden',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
-  imageContainer:{
-    width: 80
+  imageContainer: {
+    width: 80,
   },
   touchView: {
     margin: 15,
     borderRadius: 15,
-    ...AppStyles.shadow
+    ...AppStyles.shadow,
   },
   textContainer: {
-    flex: 1,  
+    flex: 1,
     paddingHorizontal: 15,
     paddingVertical: 10,
     backgroundColor: Color.themeBackground,
@@ -30,32 +30,32 @@ export default StyleSheet.create({
     fontSize: AppFont.titleMedium.size,
     fontFamily: AppFont.titleMedium.name,
     fontWeight: AppFont.titleMedium.weight,
-    color: Color.darkText
+    color: Color.darkText,
   },
-  subtitleTextStyle:{
+  subtitleTextStyle: {
     marginTop: 2,
     fontSize: AppFont.titleSmall.size,
     fontFamily: AppFont.titleSmall.name,
     fontWeight: AppFont.titleSmall.weight,
-    color: Color.lightText
+    color: Color.lightText,
   },
-  detailsTextStyle:{
+  detailsTextStyle: {
     marginTop: 5,
     fontSize: AppFont.titleExtraSmall.size,
     fontFamily: AppFont.titleExtraSmall.name,
     fontWeight: AppFont.titleExtraSmall.weight,
-    color: Color.darkText
+    color: Color.darkText,
   },
-  favouriteButtonContainer:{
+  favoriteButtonContainer: {
     justifyContent: 'center',
-    paddingHorizontal:10,
-    backgroundColor: Color.themeBackground
+    paddingHorizontal: 10,
+    backgroundColor: Color.themeBackground,
   },
-  favouriteButton:{
+  favoriteButton: {
     width: 40,
     height: 40,
     aspectRatio: 1,
     justifyContent: 'center',
-    alignItems: 'center'
-  }
-})
+    alignItems: 'center',
+  },
+});

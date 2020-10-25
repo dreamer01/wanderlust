@@ -1,69 +1,69 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
-import { TouchableHighlight, Text, Image, View } from 'react-native'
+import React, {PureComponent} from 'react';
+import PropTypes from 'prop-types';
+import {TouchableHighlight, Text, Image, View} from 'react-native';
 
-import { Icons } from '../../../Constants/Assets'
-import { Color } from '../../../Constants/Colors'
+import {Icons} from '../../../Constants/Assets';
+import {Color} from '../../../Constants/Colors';
 
-import styles from '../styles'
+import styles from '../styles';
 
 export default class BlogContainerView extends PureComponent {
   static propTypes = {
     info: PropTypes.object.isRequired,
     onTouch: PropTypes.func,
-    isFavourite: PropTypes.bool
-  }
+    isFavorite: PropTypes.bool,
+  };
 
   static defaultProps = {
     onTouch: () => {},
-    isFavourite: false
-  }
+    isFavorite: false,
+  };
 
   state = {
-    isFavourite: this.props.isFavourite
+    isFavorite: this.props.isFavorite,
+  };
+
+  onClickFavoriteButton = this.onClickFavoriteButton.bind(this);
+
+  onClickFavoriteButton() {
+    this.setState({isFavorite: !this.state.isFavorite});
   }
 
-  onClickFavoriteButton = this.onClickFavoriteButton.bind(this)
-
-  onClickFavoriteButton () {
-    this.setState({ isFavourite: !this.state.isFavourite })
-  }
-
-  render () {
-    const { info } = this.props
+  render() {
+    const {info} = this.props;
     return (
       <TouchableHighlight
         onPress={this.props.onTouch}
         underlayColor={Color.transparent}
-        style={styles.touchView}
-      >
+        style={styles.touchView}>
         <View style={styles.container}>
           <Image
-            source={{ uri: info.image }}
+            source={{uri: info.cover}}
             resizeMode={'cover'}
             resizeMethod={'resize'}
             style={styles.imageContainer}
           />
           <View style={styles.textContainer}>
             <Text style={styles.titleTextStyle}>{info.name}</Text>
-            <Text style={styles.subtitleTextStyle}>{"Indonesia"}</Text>
-            <Text numberOfLines={3} style={styles.detailsTextStyle}>{"A pagoda is a tiered tower with multiple eaves,  built in traditions originating as stupa in historic  South Asia and further developed   READ MORE"}</Text>
+            <Text style={styles.subtitleTextStyle}>{info.country.name}</Text>
+            <Text numberOfLines={6} style={styles.detailsTextStyle}>
+              {info.description}
+            </Text>
           </View>
-          {this.renderFavouriteButton({ isFavourite: this.state.isFavourite })}
+          {this.renderFavoriteButton({isFavorite: this.state.isFavorite})}
         </View>
       </TouchableHighlight>
-    )
+    );
   }
 
-  renderFavouriteButton ({ isFavourite }) {
-    const icon = isFavourite ? Icons.heartSelected : Icons.heartUnselected
+  renderFavoriteButton({isFavorite}) {
+    const icon = isFavorite ? Icons.heartSelected : Icons.heartUnselected;
     return (
-      <View style={styles.favouriteButtonContainer}>
+      <View style={styles.favoriteButtonContainer}>
         <TouchableHighlight
           onPress={this.onClickFavoriteButton}
           underlayColor={'transparent'}
-          style={styles.favouriteButton}
-        >
+          style={styles.favoriteButton}>
           <Image
             source={icon}
             resizeMode={'contain'}
@@ -71,6 +71,6 @@ export default class BlogContainerView extends PureComponent {
           />
         </TouchableHighlight>
       </View>
-    )
+    );
   }
 }

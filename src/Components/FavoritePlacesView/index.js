@@ -1,45 +1,45 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
-import { View, FlatList } from 'react-native'
+import React, {PureComponent} from 'react';
+import PropTypes from 'prop-types';
+import {View, FlatList} from 'react-native';
 
-import PlaceView from './PlaceView'
-import styles from './styles'
-import DotView from './DotView'
+import PlaceView from './PlaceView';
+import styles from './styles';
+import DotView from './DotView';
 
 export default class FavoritePlacesView extends PureComponent {
   static propTypes = {
     data: PropTypes.array,
-    navigation: PropTypes.object.isRequired
-  }
+    navigation: PropTypes.object.isRequired,
+  };
 
   static defaultProps = {
-    data: []
-  }
+    data: [],
+  };
 
   state = {
-    viewedIndex: 0
-  }
+    viewedIndex: 0,
+  };
 
-  renderItem = this.renderItem.bind(this)
-  handleViewableItemsChanged = this.handleViewableItemsChanged.bind(this)
+  renderItem = this.renderItem.bind(this);
+  handleViewableItemsChanged = this.handleViewableItemsChanged.bind(this);
 
-  onClickSeeAll () {
+  onClickSeeAll() {
     // this.props.navigation.navigate(Routes.Featured)
   }
 
-  onTouchCategory (item) {
+  onTouchCategory(item) {
     // this.props.navigation.navigate(Routes.Featured)
   }
 
-  handleViewableItemsChanged (info) {
+  handleViewableItemsChanged(info) {
     if (info.viewableItems[0] != null) {
-      let indexValue = info.viewableItems[0].index
-      this.setState({ viewedIndex: indexValue })
+      let indexValue = info.viewableItems[0].index;
+      this.setState({viewedIndex: indexValue});
     }
   }
 
-  render () {
-    const { data } = this.props
+  render() {
+    const {data} = this.props;
 
     return (
       <View style={styles.containerView}>
@@ -49,28 +49,28 @@ export default class FavoritePlacesView extends PureComponent {
           horizontal
           pagingEnabled
           renderItem={this.renderItem}
-          keyExtractor={(item, index) => item.id}
+          keyExtractor={(item, index) => item.name}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.tableView}
           onViewableItemsChanged={this.handleViewableItemsChanged}
         />
-        {this.renderDotView({ data: data })}
+        {this.renderDotView({data: data})}
       </View>
-    )
+    );
   }
 
-  renderItem ({ item }) {
+  renderItem({item}) {
     return (
       <PlaceView
         info={item}
         onTouch={() => {
-          this.onTouchCategory(item)
+          this.onTouchCategory(item);
         }}
       />
-    )
+    );
   }
 
-  renderDotView ({ data }) {
-    return <DotView data={data} selectedItemIndex={this.state.viewedIndex} />
+  renderDotView({data}) {
+    return <DotView data={data} selectedItemIndex={this.state.viewedIndex} />;
   }
 }

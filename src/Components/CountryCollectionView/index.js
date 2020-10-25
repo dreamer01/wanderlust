@@ -1,34 +1,34 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
-import { View, FlatList } from 'react-native'
+import React, {PureComponent} from 'react';
+import PropTypes from 'prop-types';
+import {View, FlatList} from 'react-native';
 
-import CountryItemView from './CountryItemView'
-import styles from './styles'
+import CountryItemView from './CountryItemView';
+import styles from './styles';
 
-export default class CountryCollcetionView extends PureComponent {
+export default class CountryCollectionView extends PureComponent {
   static propTypes = {
     data: PropTypes.array,
-    onTouch: PropTypes.func
-  }
+    onTouch: PropTypes.func,
+  };
 
   static defaultProps = {
     onTouch: () => {},
-    data: []
-  }
+    data: [],
+  };
 
   state = {
-    selectedIndex: 0
-  }
+    selectedIndex: 0,
+  };
 
-  renderItem = this.renderItem.bind(this)
+  renderItem = this.renderItem.bind(this);
 
-  onTouchCategory ({ item, index }) {
-    this.setState({ selectedIndex: index })
-    this.props.onTouch(item)
+  onTouchCategory({item, index}) {
+    this.setState({selectedIndex: index});
+    this.props.onTouch(item);
     // this.props.navigation.navigate(Routes.Featured)
   }
 
-  render () {
+  render() {
     return (
       <FlatList
         extraData={this.state}
@@ -39,18 +39,18 @@ export default class CountryCollcetionView extends PureComponent {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.tableView}
       />
-    )
+    );
   }
 
-  renderItem ({ item, index }) {
+  renderItem({item, index}) {
     return (
       <CountryItemView
         info={item}
         isSelected={index == this.state.selectedIndex}
         onTouch={() => {
-          this.onTouchCategory({ item, index })
+          this.onTouchCategory({item, index});
         }}
       />
-    )
+    );
   }
 }
