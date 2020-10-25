@@ -1,113 +1,93 @@
-import React, { Component } from 'react'
-import { SafeAreaView, View } from 'react-native'
-import PropTypes from 'prop-types'
+import React, {useState, useEffect} from 'react';
+import {SafeAreaView, View} from 'react-native';
+import {useQuery} from '@apollo/client';
 
-import I18n from '../../../localization/i18n'
-import TitleNavigationHeader from '../../../Components/navigation-header/TitleNavigationHeader'
-import ManageKeyboardScrollView from '../../../Constants/ManageKeyboardScrollView'
-import SearchBarView from '../../../Components/SearchBarView'
-import PlaceCollectionView from '../../../Components/PlaceCollectionView'
+import I18n from '../../../localization/i18n';
+import {FETCH_HOTELS} from '../../../Utils/queries';
+import {Icons} from '../../../Constants/Assets';
+import {Places} from '../../../Constants/Constants';
+import ManageKeyboardScrollView from '../../../Constants/ManageKeyboardScrollView';
+import SearchBarView from '../../../Components/SearchBarView';
+import TitleNavigationHeader from '../../../Components/navigation-header/TitleNavigationHeader';
+import PlaceCollectionView from '../../../Components/PlaceCollectionView';
+import styles from './styles';
+import OfferCollectionView from '../../../Components/OfferCollectionView';
+import Routes from '../../../Navigations/Routes';
+import HotelView from './HotelView';
 
-import styles from './styles'
-import { Icons } from '../../../Constants/Assets'
-import { Places } from '../../../Constants/Constants'
-import OfferCollectionView from '../../../Components/OfferCollectionView'
-import Routes from '../../../Navigations/Routes'
+const HotelsFeedView = ({navigation}) => {
+  const [searchText, setSearchText] = useState('');
+  const {data: hotels, loading: loadingHotels} = useQuery(FETCH_HOTELS);
 
-class HotelsFeedView extends Component {
-  static navigationOptions = {
-    header: null
-  }
+  const onClickRightButton = () => {
+    navigation.navigate(Routes.FindHotelView);
+  };
 
-  static defaultProps = {}
+  const onChangeText = ({text}) => setSearchText(text);
 
-  static propTypes = {}
-
-  state ={
-    searchText: ''
-  }
-
-  onClickRightButton = this.onClickRightButton.bind(this)
-  onChangeText = this.onChangeText(this)
-
-  onClickRightButton () {
-    this.props.navigation.navigate(Routes.FindHotelView)
-  }
-
-  onChangeText() {
-
-  }
-
-  render () {
-    return (
-      <SafeAreaView style={styles.container}>
-        <TitleNavigationHeader
-          navigation={this.props.navigation}
-          title={I18n.t('hotels01')}
-          showRightButton
-          rightButtonIcon={Icons.filter}
-          onClickRightButton={this.onClickRightButton}
-        />
-        <ManageKeyboardScrollView
-          keyboardShouldPersistTaps={'always'}
-          contentContainerStyle={styles.keyboardAvoidView}
-        >
-          {this.renderMiddleView()}
-        </ManageKeyboardScrollView>
-      </SafeAreaView>
-    )
-  }
-
-  renderMiddleView () {
+  const renderMiddleView = () => {
     return (
       <View style={styles.middleView}>
-        {this.renderSearchBar()}
-        {this.renderPopulorDestination()}
-        {this.renderOfferCollectionView()}
-        {this.renderTopCity()}
+        {renderSearchBar()}
+        {/* {renderPopularDestination()} */}
+        {renderOfferCollectionView()}
+        {renderTopHotels()}
       </View>
-    )
-  }
+    );
+  };
 
-  renderSearchBar () {
+  const renderSearchBar = () => {
     return (
       <SearchBarView
-        setRef={this.setRef}
         title={I18n.t('hotels02')}
-        searchText={this.state.searchText}
-        onChangeText={this.onChangeText}
+        searchText={searchText}
+        onChangeText={onChangeText}
       />
-    )
-  }
+    );
+  };
 
-  renderPopulorDestination () {
+  const renderPopularDestination = () => {
     return (
       <PlaceCollectionView
-        navigation={this.props.navigation}
+        navigation={navigation}
         data={Places}
         headerTitle={I18n.t('hotels03')}
       />
-    )
-  }
+    );
+  };
 
-  renderOfferCollectionView () {
+  const renderOfferCollectionView = () => {
     return (
       <OfferCollectionView
         data={Places}
-        navigation={this.props.navigation}
+        navigation={navigation}
         headerTitle={I18n.t('hotels04')}
       />
-    )
-  }
+    );
+  };
 
-  renderTopCity () {
-    return (
-      <PlaceCollectionView
-        navigation={this.props.navigation}
-        data={Places}
-        headerTitle={I18n.t('hotels05')}
+  const renderTopHotels = () => {
+    if (loadingHotels) return [];
+    return hotels.queryHotel.map(hotel => (
+      <HotelView key={hotel.id} info={hotel} />
+    ));
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <TitleNavigationHeader
+        navigation={navigation}
+        title={I18n.t('hotels01')}
+        showRightButton
+        rightButtonIcon={Icons.filter}
+        onClickRightButton={onClickRightButton}
       />
-    )
-  }
-}
-export default HotelsFeedView
+      <ManageKeyboardScrollView
+        keyboardShouldPersistTaps={'always'}
+        contentContainerStyle={styles.keyboardAvoidView}>
+        {renderMiddleView()}
+      </ManageKeyboardScrollView>
+    </SafeAreaView>
+  );
+};
+export default HotelsFeedView;

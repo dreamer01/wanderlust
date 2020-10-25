@@ -1,32 +1,32 @@
-import { StyleSheet } from "react-native";
-import { Color } from "../../../Constants/Colors";
-import AppStyles from "../../../Constants/AppStyles";
-import { AppFont } from "../../../Constants/Fonts";
+import {StyleSheet} from 'react-native';
+import {Color} from '../../../Constants/Colors';
+import AppStyles from '../../../Constants/AppStyles';
+import {AppFont} from '../../../Constants/Fonts';
 
 export default StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
-  oneWayReturnButtonContainer:{
+  oneWayReturnButtonContainer: {
     marginVertical: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: 20,
   },
-  oneWayButton:{
+  oneWayButton: {
     width: '48%',
     paddingHorizontal: 20,
     height: 35,
     backgroundColor: Color.themeDark,
-    ...AppStyles.shadow
+    ...AppStyles.shadow,
   },
-  oneWayButtonText:{
+  oneWayButtonText: {
     fontSize: AppFont.titleMedium.size,
     fontFamily: AppFont.titleMedium.name,
     fontWeight: AppFont.titleMedium.weight,
-    color: Color.brightText
+    color: Color.brightText,
   },
-  inputViewStyle:{
+  inputViewStyle: {
     marginVertical: 10,
     marginHorizontal: 20,
     borderRadius: 5,
@@ -37,9 +37,9 @@ export default StyleSheet.create({
     fontSize: AppFont.title.size,
     fontFamily: AppFont.title.name,
     fontWeight: AppFont.title.weight,
-    ...AppStyles.shadow
+    ...AppStyles.shadow,
   },
-  dateView:{
+  dateView: {
     flexDirection: 'row',
     marginVertical: 10,
     marginHorizontal: 20,
@@ -47,27 +47,27 @@ export default StyleSheet.create({
     paddingHorizontal: 10,
     height: 55,
     backgroundColor: Color.offWhiteBackground,
-    ...AppStyles.shadow
+    ...AppStyles.shadow,
   },
-  dateInputView:{
+  dateInputView: {
     flex: 1,
     fontSize: AppFont.title.size,
     fontFamily: AppFont.title.name,
-    fontWeight: AppFont.title.weight
+    fontWeight: AppFont.title.weight,
   },
-  lineView:{
+  lineView: {
     marginVertical: 10,
     margin: 10,
     width: 1,
-    backgroundColor: Color.lightBorder
+    backgroundColor: Color.lightBorder,
   },
 
-  checkoutButtonStyle: {
+  bookButtonStyle: {
     marginTop: 40,
     marginHorizontal: 20,
-    backgroundColor: Color.themeDark
+    backgroundColor: Color.themeDark,
   },
-  checkoutButtonTextStyle: {
-    color: Color.brightText
-  }
+  bookButtonTextStyle: {
+    color: Color.brightText,
+  },
 });
