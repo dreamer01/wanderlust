@@ -12,6 +12,7 @@ export const ChatbotNavigator = createStackNavigator(
     [Routes.ChatbotView]: {screen: ChatbotView},
   },
   {
+    headerMode: 'none',
     navigationOptions: ({navigation}) => ({
       gesturesEnabled: false,
       title: 'Chatbot',

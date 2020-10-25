@@ -9,6 +9,7 @@ const AppNavigator = createSwitchNavigator(
     [Routes.WelcomeView]: WelcomeView,
   },
   {
+    headerMode: 'none',
     initialRouteName: Routes.WelcomeView,
   },
 );

@@ -14,12 +14,13 @@ import {Color} from '../Constants/Colors';
 export const TabNavigator = createBottomTabNavigator(
   {
     [Routes.TravelNavigator]: {screen: TravelNavigator},
-    [Routes.FlightsNavigator]: {screen: FlightsNavigator},
-    [Routes.ChatbotNavigator]: {screen: ChatbotNavigator},
+    // [Routes.FlightsNavigator]: {screen: FlightsNavigator},
     [Routes.HotelsNavigator]: {screen: HotelsNavigator},
+    [Routes.ChatbotNavigator]: {screen: ChatbotNavigator},
     [Routes.ProfileNavigator]: {screen: ProfileNavigator},
   },
   {
+    headerMode: 'none',
     defaultNavigationOptions: ({navigation}) => ({
       tabBarOptions: {
         activeTintColor: Color.themeDark,
