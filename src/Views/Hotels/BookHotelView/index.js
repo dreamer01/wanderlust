@@ -12,7 +12,7 @@ import {Color} from '../../../Constants/Colors';
 import styles from './styles';
 
 // TODO: On click of book generate a hash value as booking Id and add booking info to Dgraph with userId
-class FindHotelView extends Component {
+class BookHotelView extends Component {
   static navigationOptions = {
     header: null,
   };
@@ -35,67 +35,15 @@ class FindHotelView extends Component {
     this.setState({isOneWaySelected: id == FlightTripOptions.oneWay});
   }
 
-  render() {
-    return (
-      <SafeAreaView style={styles.container}>
-        <BaseNavigationHeader
-          navigation={this.props.navigation}
-          title={I18n.t('flights05')}
-        />
-        <ManageKeyboardScrollView
-          keyboardShouldPersistTaps={'always'}
-          contentContainerStyle={styles.keyboardAvoidView}>
-          {this.renderMiddleView()}
-        </ManageKeyboardScrollView>
-      </SafeAreaView>
-    );
-  }
-
   renderMiddleView() {
     return (
       <View>
-        {/* {this.renderOneWayReturnButton()} */}
         {this.renderFromInputView()}
         {this.renderToInputView()}
-        {this.renderDateView()}
+        {/* {this.renderDateView()} */}
         {this.renderPassangerInputView()}
         {this.renderBookButton()}
       </View>
-    );
-  }
-
-  renderOneWayReturnButton() {
-    const isSelected = this.state.isOneWaySelected;
-    return (
-      <View style={styles.oneWayReturnButtonContainer}>
-        {this.renderButton({
-          isSelected: isSelected,
-          title: I18n.t('flights07'),
-          id: FlightTripOptions.oneWay,
-        })}
-        {this.renderButton({
-          isSelected: !isSelected,
-          title: I18n.t('flights08'),
-          id: FlightTripOptions.render,
-        })}
-      </View>
-    );
-  }
-
-  renderButton({isSelected, title, id}) {
-    const containerStyle = isSelected
-      ? {backgroundColor: Color.themeDark}
-      : {backgroundColor: Color.offWhiteBackground};
-    const textStyle = isSelected
-      ? {color: Color.brightText}
-      : {color: Color.darkText};
-    return (
-      <AppButton
-        title={title}
-        onTouch={() => this.returnButtonAction({id})}
-        styles={[styles.oneWayButton, containerStyle]}
-        textStyles={[styles.oneWayButtonText, textStyle]}
-      />
     );
   }
 
@@ -103,7 +51,7 @@ class FindHotelView extends Component {
     return (
       <TextInput
         underlineColorAndroid={'transparent'}
-        placeholder={I18n.t('flights09')}
+        placeholder={I18n.t('hotels08')}
         autoCapitalize={'sentences'}
         returnKeyType={'next'}
         autoCorrect={false}
@@ -119,7 +67,7 @@ class FindHotelView extends Component {
     return (
       <TextInput
         underlineColorAndroid={'transparent'}
-        placeholder={I18n.t('flights10')}
+        placeholder={I18n.t('hotels09')}
         autoCapitalize={'sentences'}
         returnKeyType={'next'}
         autoCorrect={false}
@@ -163,11 +111,22 @@ class FindHotelView extends Component {
     );
   }
 
+  renderBookButton() {
+    return (
+      <AppButton
+        title={I18n.t('hotels06')}
+        onTouch={this.bookButtonAction}
+        styles={styles.bookButtonStyle}
+        textStyles={styles.bookButtonTextStyle}
+      />
+    );
+  }
+
   renderPassangerInputView() {
     return (
       <TextInput
         underlineColorAndroid={'transparent'}
-        placeholder={I18n.t('flights13')}
+        placeholder={I18n.t('hotels10')}
         autoCapitalize={'sentences'}
         returnKeyType={'next'}
         autoCorrect={false}
@@ -181,15 +140,20 @@ class FindHotelView extends Component {
     );
   }
 
-  renderBookButton() {
+  render() {
     return (
-      <AppButton
-        title={I18n.t('hotels06')}
-        onTouch={this.bookButtonAction}
-        styles={styles.bookButtonStyle}
-        textStyles={styles.bookButtonTextStyle}
-      />
+      <SafeAreaView style={styles.container}>
+        <BaseNavigationHeader
+          navigation={this.props.navigation}
+          title={I18n.t('hotels07')}
+        />
+        <ManageKeyboardScrollView
+          keyboardShouldPersistTaps={'always'}
+          contentContainerStyle={styles.keyboardAvoidView}>
+          {this.renderMiddleView()}
+        </ManageKeyboardScrollView>
+      </SafeAreaView>
     );
   }
 }
-export default FindHotelView;
+export default BookHotelView;

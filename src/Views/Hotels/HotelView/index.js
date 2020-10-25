@@ -2,7 +2,7 @@ import React from 'react';
 import {TouchableHighlight, View, Image, Text} from 'react-native';
 
 import {Color} from '../../../Constants/Colors';
-import styles from './hotelStyles';
+import styles from './styles';
 
 const HotelView = ({info, onTouch}) => {
   return (

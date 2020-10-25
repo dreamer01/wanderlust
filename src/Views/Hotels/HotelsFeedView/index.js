@@ -13,14 +13,14 @@ import PlaceCollectionView from '../../../Components/PlaceCollectionView';
 import styles from './styles';
 import OfferCollectionView from '../../../Components/OfferCollectionView';
 import Routes from '../../../Navigations/Routes';
-import HotelView from './HotelView';
+import HotelView from '../HotelView';
 
 const HotelsFeedView = ({navigation}) => {
   const [searchText, setSearchText] = useState('');
   const {data: hotels, loading: loadingHotels} = useQuery(FETCH_HOTELS);
 
   const onClickRightButton = () => {
-    navigation.navigate(Routes.FindHotelView);
+    navigation.navigate(Routes.BookHotelView);
   };
 
   const onChangeText = ({text}) => setSearchText(text);
@@ -69,7 +69,11 @@ const HotelsFeedView = ({navigation}) => {
   const renderTopHotels = () => {
     if (loadingHotels) return [];
     return hotels.queryHotel.map(hotel => (
-      <HotelView key={hotel.id} info={hotel} />
+      <HotelView
+        key={hotel.id}
+        info={hotel}
+        onTouch={() => navigation.navigate(Routes.BookHotelView)}
+      />
     ));
   };
 
@@ -79,8 +83,6 @@ const HotelsFeedView = ({navigation}) => {
         navigation={navigation}
         title={I18n.t('hotels01')}
         showRightButton
-        rightButtonIcon={Icons.filter}
-        onClickRightButton={onClickRightButton}
       />
       <ManageKeyboardScrollView
         keyboardShouldPersistTaps={'always'}
