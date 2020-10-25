@@ -4,14 +4,14 @@ import {createStackNavigator} from 'react-navigation';
 
 import {Icons} from '../Constants/Assets';
 import HotelsFeedView from '../Views/Hotels/HotelsFeedView';
-import FindHotelView from '../Views/Hotels/FindHotelView';
+import BookHotelView from '../Views/Hotels/BookHotelView';
 
 import Routes from './Routes';
 
 export const HotelsNavigator = createStackNavigator(
   {
     [Routes.HotelsFeedView]: {screen: HotelsFeedView},
-    [Routes.FindHotelView]: {screen: FindHotelView},
+    [Routes.BookHotelView]: {screen: BookHotelView},
   },
   {
     headerMode: 'none',

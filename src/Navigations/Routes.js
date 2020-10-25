@@ -17,5 +17,5 @@ export default {
   HotelsFeedView: 'HotelsFeedView',
   ProfileView: 'ProfileView',
   FindFlightView: 'FindFlightView',
-  FindHotelView: 'FindHotelView',
+  BookHotelView: 'BookHotelView',
 };
