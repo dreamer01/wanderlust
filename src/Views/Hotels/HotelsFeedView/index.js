@@ -20,7 +20,7 @@ const HotelsFeedView = ({navigation}) => {
   const {data: hotels, loading: loadingHotels} = useQuery(FETCH_HOTELS);
 
   const onClickRightButton = () => {
-    navigation.navigate(Routes.BookHotelView);
+    navigation.navigate(Routes.HotelDetailsView);
   };
 
   const onChangeText = ({text}) => setSearchText(text);
@@ -72,7 +72,7 @@ const HotelsFeedView = ({navigation}) => {
       <HotelView
         key={hotel.id}
         info={hotel}
-        onTouch={() => navigation.navigate(Routes.BookHotelView)}
+        onTouch={() => navigation.navigate(Routes.HotelDetailsView, { info: hotel })}
       />
     ));
   };

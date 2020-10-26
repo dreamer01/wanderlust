@@ -14,9 +14,7 @@ class AuthLoadingView extends Component {
   }
 
   fetchData = async () => {
-    this.timeoutHandle = setTimeout(() => {
       this.props.navigation.navigate(Routes.AuthNavigator);
-    }, 2000);
   };
 
   render() {

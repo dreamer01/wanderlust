@@ -14,4 +14,5 @@ export const Icons = {
   heartSelected: require('../Assets/Icons/heart_selected_icon/heart_selected_icon.png'),
   heartUnselected: require('../Assets/Icons/heart_unselected_icon/heart_unselected_icon.png'),
   filter: require('../Assets/Icons/filter_icon/filter_icon.png'),
+  location: require('../Assets/Icons/locations_icon/location_icon.png')
 };

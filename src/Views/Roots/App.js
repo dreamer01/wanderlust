@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import NetInfo from '@react-native-community/netinfo';
-import {StatusBar, SafeAreaView} from 'react-native';
+import {StatusBar, View} from 'react-native';
 import {ApolloProvider} from '@apollo/client';
 
 import {UserProvider} from '../../Utils/userContext';
@@ -26,7 +26,7 @@ const App = () => {
   });
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <StatusBar />
       {isOnline ? (
         <>
@@ -45,7 +45,7 @@ const App = () => {
           <Text>Offline</Text>
         </View>
       )}
-    </SafeAreaView>
+    </View>
   );
 };
 

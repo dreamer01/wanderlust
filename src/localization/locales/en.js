@@ -43,4 +43,6 @@ export default {
   travel03: 'Top Cities',
   travel04: 'Blogs',
   travel05: 'Search Your Favorite City',
+  hotelDetails01: 'Hotel Details',
+  hotelDetails02: 'Book'
 };

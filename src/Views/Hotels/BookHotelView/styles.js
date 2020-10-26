@@ -37,6 +37,7 @@ export default StyleSheet.create({
     fontSize: AppFont.title.size,
     fontFamily: AppFont.title.name,
     fontWeight: AppFont.title.weight,
+    textAlign: 'center',
     ...AppStyles.shadow,
   },
   dateView: {
@@ -45,6 +46,7 @@ export default StyleSheet.create({
     marginHorizontal: 20,
     borderRadius: 5,
     paddingHorizontal: 10,
+    alignItems: 'center',
     height: 55,
     backgroundColor: Color.offWhiteBackground,
     ...AppStyles.shadow,

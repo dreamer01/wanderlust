@@ -5,7 +5,10 @@
   "scripts": {
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "pod": "cd ios && pod install",
+    "ios": "react-native run-ios",
+    "android": "react-native run-android"
   },
   "dependencies": {
     "@apollo/client": "^3.2.5",
@@ -18,6 +21,7 @@
     "react-native": "0.60.5",
     "react-native-auth0": "2.0.0",
     "react-native-config": "^1.3.3",
+    "react-native-datepicker": "^1.7.2",
     "react-native-gesture-handler": "^1.4.1",
     "react-native-i18n": "^2.0.15",
     "react-native-screens": "^2.10.1",
