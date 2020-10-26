@@ -17,6 +17,8 @@ export default StyleSheet.create({
     overflow: 'hidden',
     width: 120,
     aspectRatio: 1.25,
+    borderWidth: 0.3,
+    borderColor: Color.lightBorder,
     justifyContent: 'flex-end',
   },
   textContainer: {

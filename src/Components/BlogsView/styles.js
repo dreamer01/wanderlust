@@ -11,14 +11,16 @@ export default StyleSheet.create({
     borderRadius: 15,
     overflow: 'hidden',
     flexDirection: 'row',
+    borderWidth: 0.3,
+    borderColor: Color.lightBorder,
   },
   imageContainer: {
     width: 80,
+    overflow: 'hidden'
   },
   touchView: {
     margin: 15,
     borderRadius: 15,
-    ...AppStyles.shadow,
   },
   textContainer: {
     flex: 1,

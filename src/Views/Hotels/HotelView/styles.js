@@ -10,6 +10,8 @@ export default StyleSheet.create({
   container: {
     borderRadius: 15,
     overflow: 'hidden',
+    borderWidth: 0.3,
+    borderColor: Color.lightBorder,
   },
   imageContainer: {
     overflow: 'hidden',

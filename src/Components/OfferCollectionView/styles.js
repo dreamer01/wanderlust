@@ -10,7 +10,9 @@ export default StyleSheet.create({
   container: {
     borderRadius: 10,  
     overflow: 'hidden',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    borderWidth: 0.3,
+    borderColor: Color.lightBorder,
   },
   imageContainer:{
     width: 90

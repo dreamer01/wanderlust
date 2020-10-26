@@ -16,6 +16,8 @@ export default StyleSheet.create({
   },
   container: {
     flex: 1,
+    borderWidth: 0.3,
+    borderColor: Color.lightBorder,
     borderRadius: 10,
     overflow: 'hidden',
     backgroundColor: Color.themeBackground
