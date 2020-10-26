@@ -35,3 +35,16 @@ export const addBooking = gql`
 //   "hotelId": "0x29de",
 //   "userEmail": "ajay@gmail.com"
 // }
+
+export const ADD_VISITOR = gql`
+  mutation addVisitor($cityName: String!, $email: String!) {
+    updateCity(
+      input: {
+        filter: {name: {eq: $cityName}}
+        set: {visitors: [{email: $email}]}
+      }
+    ) {
+      numUids
+    }
+  }
+`;
