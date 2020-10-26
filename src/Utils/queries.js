@@ -62,3 +62,16 @@ export const SEARCH_HOTELS = gql`
     }
   }
 `;
+
+export const ADD_VISITOR = gql`
+  mutation addVisitor($cityName: String!, $email: String!) {
+    updateCity(
+      input: {
+        filter: {name: {eq: $cityName}}
+        set: {visitors: [{email: $email}]}
+      }
+    ) {
+      numUids
+    }
+  }
+`;
