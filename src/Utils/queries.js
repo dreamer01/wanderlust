@@ -62,3 +62,13 @@ export const SEARCH_HOTELS = gql`
     }
   }
 `;
+
+export const FETCH_GROUPS = gql`
+  query fetchChatGroups {
+    queryGroups {
+      id
+      name
+      cover
+    }
+  }
+`;
