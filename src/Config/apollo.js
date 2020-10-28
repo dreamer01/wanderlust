@@ -75,39 +75,43 @@ const errorLink = onError(
     }
 
     if (networkError) {
-      switch (networkError.extensions.code) {
-        case 'start-failed':
-          console.log('Start Failed : ', networkError.message);
-          return new Observable(observer => {
-            refreshAccessToken()
-              .then(accessToken => {
-                operation.setContext(({headers}) => ({
-                  headers: {
-                    ...headers,
-                    Authorization: `Bearer ${accessToken}`,
-                  },
-                }));
-              })
-              .then(() => {
-                const subscriber = {
-                  next: observer.next.bind(observer),
-                  error: observer.error.bind(observer),
-                  complete: observer.complete.bind(observer),
-                };
+      try {
+        switch (networkError.extensions.code) {
+          case 'start-failed':
+            console.log('Start Failed : ', networkError.message);
+            return new Observable(observer => {
+              refreshAccessToken()
+                .then(accessToken => {
+                  operation.setContext(({headers}) => ({
+                    headers: {
+                      ...headers,
+                      Authorization: `Bearer ${accessToken}`,
+                    },
+                  }));
+                })
+                .then(() => {
+                  const subscriber = {
+                    next: observer.next.bind(observer),
+                    error: observer.error.bind(observer),
+                    complete: observer.complete.bind(observer),
+                  };
 
-                // Retry last failed request
-                forward(operation).subscribe(subscriber);
-              })
-              .catch(error => {
-                // No refresh or client token available, we force user to login
-                observer.error(error);
-              });
-          });
-        case 'validation-failed':
-          console.log('Validation Failed : ', networkError.message);
-          break;
-        default:
-          console.log(networkError.extensions.code);
+                  // Retry last failed request
+                  forward(operation).subscribe(subscriber);
+                })
+                .catch(error => {
+                  // No refresh or client token available, we force user to login
+                  observer.error(error);
+                });
+            });
+          case 'validation-failed':
+            console.log('Validation Failed : ', networkError.message);
+            break;
+          default:
+            console.log(networkError.extensions.code);
+        }
+      } catch (error) {
+        console.log(error);
       }
     }
   },

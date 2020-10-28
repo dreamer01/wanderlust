@@ -18,5 +18,6 @@ export default {
   ProfileView: 'ProfileView',
   FindFlightView: 'FindFlightView',
   BookHotelView: 'BookHotelView',
-  HotelDetailsView: 'HotelDetailsView'
+  HotelDetailsView: 'HotelDetailsView',
+  ChatAreaView: 'ChatAreaView',
 };
