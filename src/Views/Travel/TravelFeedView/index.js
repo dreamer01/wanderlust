@@ -1,7 +1,7 @@
 import React, {useState, useRef, useEffect} from 'react';
 import {SafeAreaView, View} from 'react-native';
 import {useLazyQuery, useQuery} from '@apollo/client';
-import ContentLoader, {Rect, Circle} from 'react-content-loader/native';
+import ContentLoader, {Rect} from 'react-content-loader/native';
 
 import I18n from '../../../localization/i18n';
 import {Icons} from '../../../Constants/Assets';

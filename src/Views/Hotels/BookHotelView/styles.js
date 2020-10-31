@@ -37,7 +37,6 @@ export default StyleSheet.create({
     fontSize: AppFont.title.size,
     fontFamily: AppFont.title.name,
     fontWeight: AppFont.title.weight,
-    textAlign: 'center',
     ...AppStyles.shadow,
   },
   dateView: {
@@ -45,18 +44,12 @@ export default StyleSheet.create({
     marginVertical: 10,
     marginHorizontal: 20,
     borderRadius: 5,
-    paddingHorizontal: 10,
     alignItems: 'center',
     height: 55,
     backgroundColor: Color.offWhiteBackground,
     ...AppStyles.shadow,
   },
-  dateInputView: {
-    flex: 1,
-    fontSize: AppFont.title.size,
-    fontFamily: AppFont.title.name,
-    fontWeight: AppFont.title.weight,
-  },
+  dateInputView: {},
   lineView: {
     marginVertical: 10,
     margin: 10,

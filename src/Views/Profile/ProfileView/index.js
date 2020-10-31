@@ -3,6 +3,7 @@ import {SafeAreaView, View, Image, Text, TextInput} from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import AsyncStorage from '@react-native-community/async-storage';
 import {useQuery} from '@apollo/client';
+import ContentLoader, {Rect} from 'react-content-loader/native';
 
 import Routes from '../../../Navigations/Routes';
 import I18n from '../../../localization/i18n';
@@ -40,8 +41,30 @@ const ProfileView = ({navigation}) => {
       <View style={styles.middleView}>
         {renderProfileInfoView()}
         <View style={styles.carousel}>
-          {renderVisitedPlaces()}
-          {renderUserBookings()}
+          {loading ? (
+            <View style={styles.cityLoader}>
+              <ContentLoader viewBox="0 0 380 80">
+                <Rect x="5%" y="5%" rx="4" ry="4" width="20%" height="90%" />
+                <Rect x="30%" y="5%" rx="4" ry="4" width="20%" height="90%" />
+                <Rect x="55%" y="5%" rx="4" ry="4" width="20%" height="90%" />
+                <Rect x="80%" y="5%" rx="4" ry="4" width="20%" height="90%" />
+              </ContentLoader>
+            </View>
+          ) : (
+            renderVisitedPlaces()
+          )}
+          {loading ? (
+            <View style={styles.cityLoader}>
+              <ContentLoader viewBox="0 0 380 80">
+                <Rect x="5%" y="5%" rx="4" ry="4" width="20%" height="90%" />
+                <Rect x="30%" y="5%" rx="4" ry="4" width="20%" height="90%" />
+                <Rect x="55%" y="5%" rx="4" ry="4" width="20%" height="90%" />
+                <Rect x="80%" y="5%" rx="4" ry="4" width="20%" height="90%" />
+              </ContentLoader>
+            </View>
+          ) : (
+            renderUserBookings()
+          )}
         </View>
         {renderLogoutButton()}
       </View>

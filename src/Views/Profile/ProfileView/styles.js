@@ -2,6 +2,7 @@ import {StyleSheet} from 'react-native';
 import {Color} from '../../../Constants/Colors';
 import {AppFont} from '../../../Constants/Fonts';
 import AppStyles from '../../../Constants/AppStyles';
+import {ScreenWidth} from '../../../Constants/Constants';
 
 export default StyleSheet.create({
   container: {
@@ -62,6 +63,10 @@ export default StyleSheet.create({
   },
   carousel: {
     flex: 1,
+  },
+  cityLoader: {
+    width: ScreenWidth,
+    height: 120,
   },
   logoutButtonStyle: {
     margin: 20,

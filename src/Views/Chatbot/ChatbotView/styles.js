@@ -2,6 +2,7 @@ import {StyleSheet} from 'react-native';
 
 import {Color} from '../../../Constants/Colors';
 import {AppFont} from '../../../Constants/Fonts';
+import {ScreenWidth} from '../../../Constants/Constants';
 
 export default StyleSheet.create({
   container: {
@@ -11,9 +12,10 @@ export default StyleSheet.create({
     flex: 1,
     padding: 20,
   },
-  groupContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+  groupContainer: {},
+  loader: {
+    width: ScreenWidth,
+    height: ((ScreenWidth * 9) / 16) * 2,
   },
   headerTitle: {
     fontSize: AppFont.titleExtraLargeBold.size,

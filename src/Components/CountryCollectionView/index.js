@@ -35,7 +35,7 @@ export default class CountryCollectionView extends PureComponent {
         data={this.props.data}
         horizontal
         renderItem={this.renderItem}
-        keyExtractor={(item, index) => item.id}
+        keyExtractor={(item, index) => item.name}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.tableView}
       />

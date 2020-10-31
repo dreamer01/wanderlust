@@ -10,6 +10,7 @@ import {
   Image,
 } from 'react-native';
 import {useMutation, useSubscription} from '@apollo/client';
+import {List} from 'react-content-loader/native';
 
 import {useUser} from '../../../Utils/userContext';
 import {GROUP_MESSAGES} from '../../../Utils/subscriptions';
@@ -55,7 +56,13 @@ const ChatAreaView = ({navigation}) => {
         keyboardShouldPersistTaps={'always'}
         contentContainerStyle={styles.keyboardAvoidView}>
         <ScrollView style={styles.messageArea}>
-          {!data && <Text>Loading...</Text>}
+          {!data && (
+            <View style={styles.loader}>
+              <List />
+              <List style={{marginTop: 20}} />
+              <List style={{marginTop: 20}} />
+            </View>
+          )}
           {data && (
             <FlatList
               data={data.queryGroups[0].messages.reverse()}

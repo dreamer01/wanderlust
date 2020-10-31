@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {SafeAreaView, View} from 'react-native';
 import {useQuery} from '@apollo/client';
-
 import ContentLoader, {Rect} from 'react-content-loader/native';
+
 import I18n from '../../../localization/i18n';
 import {FETCH_HOTELS} from '../../../Utils/queries';
 import {Icons} from '../../../Constants/Assets';
@@ -69,20 +69,22 @@ const HotelsFeedView = ({navigation}) => {
 
   const renderTopHotels = () => {
     if (loadingHotels) {
-        return (
-          <View style={styles.favtItem}>
-            <ContentLoader viewBox="0 0 380 300">
-              <Rect x="5%" y="10" rx="4" ry="4" width="90%" height="40%" />
-              <Rect x="5%" y="50%" rx="4" ry="4" width="90%" height="40%" />
-            </ContentLoader>
-          </View>
-        );
+      return (
+        <View style={styles.favtItem}>
+          <ContentLoader viewBox="0 0 380 300">
+            <Rect x="5%" y="10" rx="4" ry="4" width="90%" height="40%" />
+            <Rect x="5%" y="50%" rx="4" ry="4" width="90%" height="40%" />
+          </ContentLoader>
+        </View>
+      );
     }
     return hotels.queryHotel.map(hotel => (
       <HotelView
         key={hotel.id}
         info={hotel}
-        onTouch={() => navigation.navigate(Routes.HotelDetailsView, { info: hotel })}
+        onTouch={() =>
+          navigation.navigate(Routes.HotelDetailsView, {info: hotel})
+        }
       />
     ));
   };
