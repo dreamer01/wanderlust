@@ -6,6 +6,7 @@ import ItemHeaderView from '../PlaceCollectionView/ItemHeaderView';
 import BlogContainerView from './BlogContainerView';
 
 import styles from './styles';
+import Routes from '../../Navigations/Routes';
 
 export default class BlogsView extends PureComponent {
   static propTypes = {
@@ -19,12 +20,14 @@ export default class BlogsView extends PureComponent {
     headerTitle: '',
   };
 
+  onTouchCategory = this.onTouchCategory.bind(this);
+
   onClickSeeAll() {
     // this.props.navigation.navigate(Routes.Featured)
   }
 
   onTouchCategory(item) {
-    // this.props.navigation.navigate(Routes.Featured)
+    this.props.navigation.navigate(Routes.PlaceDetailsView, { info: item })
   }
 
   render() {
@@ -39,7 +42,7 @@ export default class BlogsView extends PureComponent {
 
   renderItems({items}) {
     return items.map((item, i) => {
-      return <BlogContainerView key={i} info={item} />;
+      return <BlogContainerView key={i} info={item} onTouch={this.onTouchCategory} />;
     });
   }
 }

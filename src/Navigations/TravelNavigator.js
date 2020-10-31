@@ -7,10 +7,12 @@ import TravelFeedView from '../Views/Travel/TravelFeedView';
 import I18n from '../localization/i18n';
 
 import Routes from './Routes';
+import PlaceDetailsView from '../Views/Travel/PlaceDetailsView';
 
 export const TravelNavigator = createStackNavigator(
   {
     [Routes.TravelFeedView]: {screen: TravelFeedView},
+    [Routes.PlaceDetailsView]: { screen: PlaceDetailsView }
   },
   {
     headerMode: 'none',
