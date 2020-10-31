@@ -2,11 +2,13 @@ import React, {Component, useEffect, useState} from 'react';
 import {SafeAreaView, View, Image, Text, TextInput} from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import AsyncStorage from '@react-native-community/async-storage';
+import {useQuery} from '@apollo/client';
 
 import Routes from '../../../Navigations/Routes';
 import I18n from '../../../localization/i18n';
 import {useUser} from '../../../Utils/userContext';
 import {Places} from '../../../Constants/Constants';
+import {FETCH_PROFILE_DETAILS} from '../../../Utils/queries';
 import AppButton from '../../../Components/base-componets/AppButton';
 import TitleNavigationHeader from '../../../Components/navigation-header/TitleNavigationHeader';
 import ManageKeyboardScrollView from '../../../Constants/ManageKeyboardScrollView';
@@ -29,12 +31,18 @@ const ProfileView = ({navigation}) => {
       .catch(error => console.log(error));
   };
 
+  const {data: profileData, loading} = useQuery(FETCH_PROFILE_DETAILS, {
+    variables: {email: user && user.email},
+  });
+
   const renderMiddleView = () => {
     return (
       <View style={styles.middleView}>
         {renderProfileInfoView()}
-        {renderVisitedPlaces()}
-        {renderVisitedPlaces()}
+        <View style={styles.carousel}>
+          {renderVisitedPlaces()}
+          {renderUserBookings()}
+        </View>
         {renderLogoutButton()}
       </View>
     );
@@ -94,8 +102,25 @@ const ProfileView = ({navigation}) => {
     return (
       <PlaceCollectionView
         navigation={navigation}
-        data={Places}
+        data={loading ? [] : profileData.getUser.visited}
         headerTitle={I18n.t('profile02')}
+      />
+    );
+  };
+
+  const renderUserBookings = () => {
+    return (
+      <PlaceCollectionView
+        navigation={navigation}
+        data={
+          loading
+            ? []
+            : profileData.getUser.bookings.reduce(
+                (bookings, b) => [...bookings, b.hotel],
+                [],
+              )
+        }
+        headerTitle={I18n.t('profile04')}
       />
     );
   };

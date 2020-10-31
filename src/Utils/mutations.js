@@ -48,3 +48,25 @@ export const ADD_VISITOR = gql`
     }
   }
 `;
+
+export const SEND_MESSAGE = gql`
+  mutation sendMessage(
+    $user: String!
+    $message: String!
+    $groupId: ID!
+    $time: DateTime!
+  ) {
+    addMessage(
+      input: [
+        {
+          user: {email: $user}
+          text: $message
+          time: $time
+          group: {id: $groupId}
+        }
+      ]
+    ) {
+      numUids
+    }
+  }
+`;

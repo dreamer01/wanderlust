@@ -14,6 +14,7 @@ export default {
   profile01: 'Profile',
   profile02: 'Visited Place',
   profile03: 'Log Out',
+  profile04: 'My Bookings',
   flights01: 'Flight',
   flights02: 'Where to go?',
   flights03: 'Popular Destinations',
@@ -44,5 +45,5 @@ export default {
   travel04: 'Blogs',
   travel05: 'Search Your Favorite City',
   hotelDetails01: 'Hotel Details',
-  hotelDetails02: 'Book'
+  hotelDetails02: 'Book',
 };

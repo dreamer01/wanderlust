@@ -1,16 +1,34 @@
-import React, {Component} from 'react';
-import {SafeAreaView} from 'react-native';
-import PropTypes from 'prop-types';
+import React from 'react';
+import {SafeAreaView, View, ScrollView, Text} from 'react-native';
+import {useQuery} from '@apollo/client';
 
+import {FETCH_GROUPS} from '../../../Utils/queries';
+import Routes from '../../../Navigations/Routes';
+import GroupItemView from '../GroupItemView';
 import styles from './styles';
 
-class ChatbotView extends Component {
-  static defaultProps = {};
+const ChatbotView = ({navigation}) => {
+  const {data: groups, loading} = useQuery(FETCH_GROUPS);
 
-  static propTypes = {};
+  return (
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.chatContainer}>
+        <Text style={styles.headerTitle}>Catch With Fellow Wanderer</Text>
+        <View style={styles.groupContainer}>
+          {!loading &&
+            groups.queryGroups.map(group => (
+              <GroupItemView
+                onTouch={() =>
+                  navigation.navigate(Routes.ChatAreaView, {group})
+                }
+                key={group.id}
+                info={group}
+              />
+            ))}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
 
-  render() {
-    return <SafeAreaView style={styles.container} />;
-  }
-}
 export default ChatbotView;

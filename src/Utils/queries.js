@@ -62,3 +62,30 @@ export const SEARCH_HOTELS = gql`
     }
   }
 `;
+
+export const FETCH_GROUPS = gql`
+  query fetchChatGroups {
+    queryGroups {
+      id
+      name
+      cover
+    }
+  }
+`;
+
+export const FETCH_PROFILE_DETAILS = gql`
+  query userProfile($email: String!) {
+    getUser(email: $email) {
+      visited {
+        cover
+        name
+      }
+      bookings {
+        hotel {
+          cover
+          name
+        }
+      }
+    }
+  }
+`;
