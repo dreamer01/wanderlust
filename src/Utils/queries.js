@@ -72,3 +72,20 @@ export const FETCH_GROUPS = gql`
     }
   }
 `;
+
+export const FETCH_PROFILE_DETAILS = gql`
+  query userProfile($email: String!) {
+    getUser(email: $email) {
+      visited {
+        cover
+        name
+      }
+      bookings {
+        hotel {
+          cover
+          name
+        }
+      }
+    }
+  }
+`;

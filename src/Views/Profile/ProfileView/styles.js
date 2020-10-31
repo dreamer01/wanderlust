@@ -10,7 +10,9 @@ export default StyleSheet.create({
   keyboardAvoidView: {
     flexGrow: 1,
   },
-  middleView: {},
+  middleView: {
+    flex: 1,
+  },
   profileView: {
     flexDirection: 'row',
     padding: 20,
@@ -58,9 +60,11 @@ export default StyleSheet.create({
     fontWeight: AppFont.title.weight,
     ...AppStyles.shadow,
   },
+  carousel: {
+    flex: 1,
+  },
   logoutButtonStyle: {
-    marginTop: 40,
-    marginHorizontal: 20,
+    margin: 20,
     backgroundColor: Color.themeDark,
   },
   logoutButtonTextStyle: {
