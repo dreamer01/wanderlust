@@ -89,3 +89,23 @@ export const FETCH_PROFILE_DETAILS = gql`
     }
   }
 `;
+
+export const VISITORS_LIST = gql`
+  query visitorsList($cityName: String!) {
+    getCity(name: $cityName) {
+      visitors {
+        email
+      }
+    }
+  }
+`;
+
+export const CITY_VISITED = gql`
+  query userProfile($userEmail: String!) {
+    getUser(email: $userEmail) {
+      visited {
+        name
+      }
+    }
+  }
+`;
