@@ -1,6 +1,6 @@
 import {gql} from '@apollo/client';
 
-export const addBooking = gql`
+export const ADD_BOOKING = gql`
   mutation addBooking(
     $bookingId: String!
     $checkIn: DateTime!

@@ -1,9 +1,12 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {SafeAreaView, View, Keyboard, TextInput} from 'react-native';
 import DatePicker from 'react-native-datepicker';
+import {useMutation} from '@apollo/client';
+import shortid from 'shortid';
 
 import I18n from '../../../localization/i18n';
-import {FlightTripOptions} from '../../../Constants/Constants';
+import {useUser} from '../../../Utils/userContext';
+import {ADD_BOOKING} from '../../../Utils/mutations';
 import BaseNavigationHeader from '../../../Components/navigation-header/BaseNavigationHeader';
 import ManageKeyboardScrollView from '../../../Constants/ManageKeyboardScrollView';
 import AppButton from '../../../Components/base-componets/AppButton';
@@ -11,49 +14,47 @@ import AppButton from '../../../Components/base-componets/AppButton';
 import styles from './styles';
 import {AppFont} from '../../../Constants/Fonts';
 
-// TODO: On click of book generate a hash value as booking Id and add booking info to Dgraph with userId
-class BookHotelView extends Component {
-  static navigationOptions = {
-    header: null,
-  };
+const BookHotelView = ({navigation}) => {
+  const [checkInDate, setCheckIn] = useState('');
+  const [checkOutDate, setCheckOut] = useState('');
+  const [members, setMembers] = useState(0);
+  const hotel = navigation.state.params.hotel;
+  const [user] = useUser();
 
-  static defaultProps = {};
+  const [addBooking] = useMutation(ADD_BOOKING, {
+    variables: {
+      bookingId: shortid.generate(),
+      checkIn: checkInDate,
+      checkOut: checkOutDate,
+      members,
+      hotelId: hotel.id,
+      userEmail: user.email,
+    },
+    onCompleted: () => navigation.goBack(),
+  });
 
-  static propTypes = {};
-
-  state = {
-    isOneWaySelected: true,
-    checkInDate: null,
-    checkOutDate: null,
-  };
-
-  bookButtonAction = this.bookButtonAction.bind(this);
-
-  bookButtonAction() {
+  const bookButtonAction = () => {
     Keyboard.dismiss();
-  }
+    addBooking();
+  };
 
-  returnButtonAction({id}) {
-    this.setState({isOneWaySelected: id == FlightTripOptions.oneWay});
-  }
-
-  renderMiddleView() {
+  const renderMiddleView = () => {
     return (
       <View>
-        {this.renderFromInputView()}
-        {this.renderToInputView()}
-        {this.renderPassengerInputView()}
-        {this.renderBookButton()}
+        {renderFromInputView()}
+        {renderToInputView()}
+        {renderPassengerInputView()}
+        {renderBookButton()}
       </View>
     );
-  }
+  };
 
-  renderFromInputView() {
+  const renderFromInputView = () => {
     return (
       <View style={styles.dateView}>
         <DatePicker
           style={styles.dateInputView}
-          date={this.state.checkInDate}
+          date={checkInDate}
           mode="date"
           placeholder={I18n.t('hotels08')}
           format="YYYY-MM-DD"
@@ -76,20 +77,18 @@ class BookHotelView extends Component {
               textAlign: 'left',
             },
           }}
-          onDateChange={date => {
-            this.setState({checkInDate: date});
-          }}
+          onDateChange={setCheckIn}
         />
       </View>
     );
-  }
+  };
 
-  renderToInputView() {
+  const renderToInputView = () => {
     return (
       <View style={styles.dateView}>
         <DatePicker
           style={styles.dateInputView}
-          date={this.state.checkOutDate}
+          date={checkOutDate}
           mode="date"
           placeholder={I18n.t('hotels09')}
           format="YYYY-MM-DD"
@@ -112,15 +111,13 @@ class BookHotelView extends Component {
               textAlign: 'left',
             },
           }}
-          onDateChange={date => {
-            this.setState({checkOutDate: date});
-          }}
+          onDateChange={setCheckOut}
         />
       </View>
     );
-  }
+  };
 
-  renderPassengerInputView() {
+  const renderPassengerInputView = () => {
     return (
       <TextInput
         underlineColorAndroid={'transparent'}
@@ -129,40 +126,36 @@ class BookHotelView extends Component {
         returnKeyType={'next'}
         autoCorrect={false}
         style={styles.inputViewStyle}
-        onChangeText={text => this.setState({from: text})}
-        onSubmitEditing={event => {
-          this.bookButtonAction();
-        }}
-        value={this.state.from}
+        onChangeText={text => setMembers(text)}
+        onSubmitEditing={bookButtonAction}
+        value={members}
       />
     );
-  }
+  };
 
-  renderBookButton() {
+  const renderBookButton = () => {
     return (
       <AppButton
         title={I18n.t('hotels06')}
-        onTouch={this.bookButtonAction}
+        onTouch={bookButtonAction}
         styles={styles.bookButtonStyle}
         textStyles={styles.bookButtonTextStyle}
       />
     );
-  }
+  };
 
-  render() {
-    return (
-      <SafeAreaView style={styles.container}>
-        <BaseNavigationHeader
-          navigation={this.props.navigation}
-          title={I18n.t('hotels07')}
-        />
-        <ManageKeyboardScrollView
-          keyboardShouldPersistTaps={'always'}
-          contentContainerStyle={styles.keyboardAvoidView}>
-          {this.renderMiddleView()}
-        </ManageKeyboardScrollView>
-      </SafeAreaView>
-    );
-  }
-}
+  return (
+    <SafeAreaView style={styles.container}>
+      <BaseNavigationHeader
+        navigation={navigation}
+        title={I18n.t('hotels07')}
+      />
+      <ManageKeyboardScrollView
+        keyboardShouldPersistTaps={'always'}
+        contentContainerStyle={styles.keyboardAvoidView}>
+        {renderMiddleView()}
+      </ManageKeyboardScrollView>
+    </SafeAreaView>
+  );
+};
 export default BookHotelView;

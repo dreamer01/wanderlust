@@ -14,9 +14,9 @@ import styles from './styles';
 const HotelDetailsView = ({navigation}) => {
   const info = navigation.state.params.info;
 
-  const signInButtonAction = () => {
-    navigation.navigate(Routes.BookHotelView)
-  }
+  const bookHotel = () => {
+    navigation.navigate(Routes.BookHotelView, {hotel: info});
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -40,11 +40,11 @@ const HotelDetailsView = ({navigation}) => {
         </View>
         <Text style={styles.des}>{info.description}</Text>
         <AppButton
-        title={I18n.t('hotelDetails02')}
-        onTouch={signInButtonAction}
-        styles={styles.signInButtonStyle}
-        textStyles={styles.signInButtonTextStyle}
-      />
+          title={I18n.t('hotelDetails02')}
+          onTouch={bookHotel}
+          styles={styles.signInButtonStyle}
+          textStyles={styles.signInButtonTextStyle}
+        />
       </ManageKeyboardScrollView>
     </SafeAreaView>
   );
