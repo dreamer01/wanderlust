@@ -17,9 +17,9 @@ import {SEND_MESSAGE} from '../../../Utils/mutations';
 import {Color} from '../../../Constants/Colors';
 import {Icons} from '../../../Constants/Assets';
 import TitleNavigationHeader from '../../../Components/navigation-header/TitleNavigationHeader';
+import ManageKeyboardScrollView from '../../../Constants/ManageKeyboardScrollView';
 import styles from './styles';
 
-// TODO: Keyboard view and Scroll to bottom on load.
 const ChatAreaView = ({navigation}) => {
   const [message, setMessage] = useState('');
   const [user] = useUser();
@@ -50,37 +50,42 @@ const ChatAreaView = ({navigation}) => {
         title={group.name}
         showBackButton
       />
-      <ScrollView style={styles.messageArea}>
-        {loading && <Text>Loading...</Text>}
-        {!loading && (
-          <FlatList
-            data={data.queryGroups[0].messages.reverse()}
-            renderItem={renderMessage}
-            keyExtractor={item => `${item.id}`}
-            ListFooterComponent={<Text></Text>}
+
+      <ManageKeyboardScrollView
+        keyboardShouldPersistTaps={'always'}
+        contentContainerStyle={styles.keyboardAvoidView}>
+        <ScrollView style={styles.messageArea}>
+          {!data && <Text>Loading...</Text>}
+          {data && (
+            <FlatList
+              data={data.queryGroups[0].messages.reverse()}
+              renderItem={renderMessage}
+              keyExtractor={item => `${item.id}`}
+              ListFooterComponent={<Text></Text>}
+            />
+          )}
+        </ScrollView>
+        <View style={styles.chatInput}>
+          <TextInput
+            underlineColorAndroid={'transparent'}
+            placeholder={'Type something...'}
+            autoCapitalize={'sentences'}
+            returnKeyType={'send'}
+            style={styles.inputViewStyle}
+            value={message}
+            onSubmitEditing={() => {
+              sendMessage();
+            }}
+            onChangeText={text => setMessage(text)}
           />
-        )}
-      </ScrollView>
-      <View style={styles.chatInput}>
-        <TextInput
-          underlineColorAndroid={'transparent'}
-          placeholder={'Type something...'}
-          autoCapitalize={'sentences'}
-          returnKeyType={'send'}
-          style={styles.inputViewStyle}
-          value={message}
-          onSubmitEditing={() => {
-            sendMessage();
-          }}
-          onChangeText={text => setMessage(text)}
-        />
-        <TouchableHighlight
-          onPress={() => sendMessage()}
-          underlayColor={Color.themeBackground}
-          style={styles.backIconStyle}>
-          <Image source={Icons.back} />
-        </TouchableHighlight>
-      </View>
+          <TouchableHighlight
+            onPress={() => sendMessage()}
+            underlayColor={Color.themeBackground}
+            style={styles.backIconStyle}>
+            <Image source={Icons.back} />
+          </TouchableHighlight>
+        </View>
+      </ManageKeyboardScrollView>
     </SafeAreaView>
   );
 };

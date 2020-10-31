@@ -8,7 +8,7 @@ export default StyleSheet.create({
     flex: 1,
   },
   keyboardAvoidView: {
-    flexGrow: 1,
+    flex: 1,
   },
   messageArea: {
     flex: 1,
