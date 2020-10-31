@@ -5,6 +5,7 @@ import {View, FlatList} from 'react-native';
 import PlaceItemView from './PlaceItemView';
 import ItemHeaderView from './ItemHeaderView';
 import styles from './styles';
+import Routes from '../../Navigations/Routes';
 
 export default class PlaceCollectionView extends PureComponent {
   static propTypes = {
@@ -25,7 +26,7 @@ export default class PlaceCollectionView extends PureComponent {
   }
 
   onTouchCategory(item) {
-    // this.props.navigation.navigate(Routes.Featured)
+    this.props.navigation.navigate(Routes.PlaceDetailsView, { info: item })
   }
 
   render() {

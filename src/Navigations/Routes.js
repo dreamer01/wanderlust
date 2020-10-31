@@ -20,4 +20,5 @@ export default {
   BookHotelView: 'BookHotelView',
   HotelDetailsView: 'HotelDetailsView',
   ChatAreaView: 'ChatAreaView',
+  PlaceDetailsView: 'PlaceDetailsView',
 };

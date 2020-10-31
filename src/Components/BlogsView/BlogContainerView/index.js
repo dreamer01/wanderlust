@@ -33,7 +33,9 @@ export default class BlogContainerView extends PureComponent {
     const {info} = this.props;
     return (
       <TouchableHighlight
-        onPress={this.props.onTouch}
+        onPress={()=> {
+          this.props.onTouch(info)
+        }}
         underlayColor={Color.transparent}
         style={styles.touchView}>
         <View style={styles.container}>
