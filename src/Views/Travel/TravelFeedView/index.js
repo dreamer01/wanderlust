@@ -1,6 +1,7 @@
 import React, {useState, useRef, useEffect} from 'react';
 import {SafeAreaView, View} from 'react-native';
 import {useLazyQuery, useQuery} from '@apollo/client';
+import ContentLoader, {Rect, Circle} from 'react-content-loader/native';
 
 import I18n from '../../../localization/i18n';
 import {Icons} from '../../../Constants/Assets';
@@ -90,6 +91,16 @@ const TravelFeedView = ({navigation}) => {
   };
 
   const renderFavoritePlaces = () => {
+    if (loadingCountries) {
+      return (
+        <View style={styles.favtItem}>
+          <ContentLoader viewBox="0 0 380 150">
+            <Rect x="5%" y="5%" rx="4" ry="4" width="90%" height="90%" />
+          </ContentLoader>
+        </View>
+      );
+    }
+
     return (
       <FavoritePlacesView
         navigation={navigation}
@@ -99,6 +110,18 @@ const TravelFeedView = ({navigation}) => {
   };
 
   const renderTopCity = () => {
+    if (loadingCities) {
+      return (
+        <View style={styles.cities}>
+          <ContentLoader viewBox="0 0 380 80">
+            <Rect x="5%" y="5%" rx="4" ry="4" width="20%" height="90%" />
+            <Rect x="30%" y="5%" rx="4" ry="4" width="20%" height="90%" />
+            <Rect x="55%" y="5%" rx="4" ry="4" width="20%" height="90%" />
+            <Rect x="80%" y="5%" rx="4" ry="4" width="20%" height="90%" />
+          </ContentLoader>
+        </View>
+      );
+    }
     return (
       <PlaceCollectionView
         navigation={navigation}
@@ -118,6 +141,15 @@ const TravelFeedView = ({navigation}) => {
   };
 
   const renderBlogView = () => {
+    if (loadingCities) {
+      return (
+        <View style={styles.favtItem}>
+          <ContentLoader viewBox="0 0 380 150">
+            <Rect x="5%" y="5%" rx="4" ry="4" width="90%" height="90%" />
+          </ContentLoader>
+        </View>
+      );
+    }
     return (
       <BlogsView
         data={
