@@ -69,6 +69,11 @@ const ChatAreaView = ({navigation}) => {
               renderItem={renderMessage}
               keyExtractor={item => `${item.id}`}
               ListFooterComponent={<Text></Text>}
+              ListEmptyComponent={
+                <Text style={styles.loader}>
+                  No Messages. Start the conversation.
+                </Text>
+              }
             />
           )}
         </ScrollView>

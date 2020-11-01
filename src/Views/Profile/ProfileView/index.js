@@ -92,6 +92,7 @@ const ProfileView = ({navigation}) => {
   const renderVisitedPlaces = () => {
     return (
       <PlaceCollectionView
+        showDetails={false}
         navigation={navigation}
         data={loading ? [] : profileData.getUser.visited}
         headerTitle={I18n.t('profile02')}
@@ -102,6 +103,7 @@ const ProfileView = ({navigation}) => {
   const renderUserBookings = () => {
     return (
       <PlaceCollectionView
+        showDetails={false}
         navigation={navigation}
         data={
           loading

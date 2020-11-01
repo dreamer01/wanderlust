@@ -1,14 +1,15 @@
 import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
 import {View, FlatList} from 'react-native';
+import PropTypes from 'prop-types';
 
+import Routes from '../../Navigations/Routes';
 import PlaceItemView from './PlaceItemView';
 import ItemHeaderView from './ItemHeaderView';
 import styles from './styles';
-import Routes from '../../Navigations/Routes';
 
 export default class PlaceCollectionView extends PureComponent {
   static propTypes = {
+    showDetails: PropTypes.bool,
     data: PropTypes.array,
     headerTitle: PropTypes.string,
     navigation: PropTypes.object.isRequired,
@@ -17,16 +18,14 @@ export default class PlaceCollectionView extends PureComponent {
   static defaultProps = {
     data: [],
     headerTitle: '',
+    showDetails: true,
   };
 
   renderItem = this.renderItem.bind(this);
 
-  onClickSeeAll() {
-    // this.props.navigation.navigate(Routes.Featured)
-  }
-
   onTouchCategory(item) {
-    this.props.navigation.navigate(Routes.PlaceDetailsView, { info: item })
+    if (this.props.showDetails)
+      this.props.navigation.navigate(Routes.PlaceDetailsView, {info: item});
   }
 
   render() {
