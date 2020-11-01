@@ -1,0 +1,89 @@
+type User
+  @auth(
+    query: {
+      rule: """
+      query($USER: String!) {
+          queryUser(filter: { email: { eq: $USER } }) {
+              __typename
+
+          }
+      }
+      """
+    }
+  ) {
+  email: String! @id
+  name: String! @search(by: [exact])
+  bio: String!
+  avatar: String!
+  reviews: [Review] @hasInverse(field: user)
+  visited: [City] @hasInverse(field: visitors)
+  bookings: [Booking] @hasInverse(field: user)
+}
+
+enum Continent {
+  Asia
+  North_America
+  Europe
+}
+
+type Country {
+  name: String! @id @search(by: [fulltext])
+  description: String!
+  cover: String!
+  cities: [City!] @hasInverse(field: country)
+  continent: Continent @search
+}
+
+type City {
+  name: String! @id @search(by: [fulltext])
+  description: String!
+  cover: String!
+  spots: [String!]
+  visitors: [User!] @hasInverse(field: visited)
+  country: Country!
+  stays: [Hotel!] @hasInverse(field: location)
+  reviews: [Review!] @hasInverse(field: city)
+}
+
+type Hotel {
+  id: ID!
+  name: String! @search(by: [fulltext])
+  description: String!
+  location: City!
+  cover: String!
+}
+
+type Review {
+  id: ID!
+  name: String!
+  description: String!
+  ratings: Int!
+  user: User!
+  city: City!
+}
+
+type Booking {
+  bookingId: String! @id
+  from: DateTime!
+  to: DateTime!
+  members: Int!
+  hotel: Hotel!
+  user: User!
+}
+
+type Groups @withSubscription {
+  id: ID!
+  name: String!
+  cover: String!
+  messages: [Message] @hasInverse(field: group)
+}
+
+type Message @withSubscription {
+  id: ID!
+  user: User!
+  text: String!
+  time: DateTime!
+  group: Groups!
+}
+
+# Dgraph.Authorization
