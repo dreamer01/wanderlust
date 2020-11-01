@@ -6,6 +6,7 @@ import shortid from 'shortid';
 
 import I18n from '../../../localization/i18n';
 import {useUser} from '../../../Utils/userContext';
+import {FETCH_PROFILE_DETAILS} from '../../../Utils/queries';
 import {ADD_BOOKING} from '../../../Utils/mutations';
 import BaseNavigationHeader from '../../../Components/navigation-header/BaseNavigationHeader';
 import ManageKeyboardScrollView from '../../../Constants/ManageKeyboardScrollView';
@@ -30,6 +31,9 @@ const BookHotelView = ({navigation}) => {
       hotelId: hotel.id,
       userEmail: user.email,
     },
+    refetchQueries: [
+      {query: FETCH_PROFILE_DETAILS, variables: {email: user.email}},
+    ],
     onCompleted: () => navigation.goBack(),
   });
 

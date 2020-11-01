@@ -1,14 +1,13 @@
 import React, {Component, useEffect, useState} from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
+import ContentLoader, {Rect} from 'react-content-loader/native';
 import {SafeAreaView, View, Image, Text, TextInput} from 'react-native';
 import {NavigationActions} from 'react-navigation';
-import AsyncStorage from '@react-native-community/async-storage';
 import {useQuery} from '@apollo/client';
-import ContentLoader, {Rect} from 'react-content-loader/native';
 
 import Routes from '../../../Navigations/Routes';
 import I18n from '../../../localization/i18n';
 import {useUser} from '../../../Utils/userContext';
-import {Places} from '../../../Constants/Constants';
 import {FETCH_PROFILE_DETAILS} from '../../../Utils/queries';
 import AppButton from '../../../Components/base-componets/AppButton';
 import TitleNavigationHeader from '../../../Components/navigation-header/TitleNavigationHeader';
@@ -89,37 +88,6 @@ const ProfileView = ({navigation}) => {
       </View>
     );
   };
-
-  // const renderNameInput = () => {
-  //   return (
-  //     <TextInput
-  //       underlineColorAndroid={'transparent'}
-  //       placeholder={I18n.t('signUp02')}
-  //       autoCapitalize={'sentences'}
-  //       returnKeyType={'next'}
-  //       autoCorrect={false}
-  //       style={styles.inputViewStyle}
-  //       onChangeText={text => {}}
-  //       value={user && user.name}
-  //     />
-  //   );
-  // };
-
-  // const renderEmailAddress = () => {
-  //   return (
-  //     <TextInput
-  //       underlineColorAndroid={'transparent'}
-  //       placeholder={I18n.t('signIn02')}
-  //       keyboardType={'email-address'}
-  //       autoCapitalize={'none'}
-  //       returnKeyType={'next'}
-  //       autoCorrect={false}
-  //       style={styles.inputViewStyle}
-  //       onChangeText={text => {}}
-  //       value={user && user.email}
-  //     />
-  //   );
-  // };
 
   const renderVisitedPlaces = () => {
     return (

@@ -21,7 +21,7 @@ const authLink = setContext((_, {headers}) => {
       return {
         headers: {
           ...headers,
-          Authorization: `Bearer ${token}`,
+          Authorization: token,
         },
       };
     } else {
@@ -34,85 +34,13 @@ const authLink = setContext((_, {headers}) => {
 const errorLink = onError(
   ({graphQLErrors, networkError, operation, forward}) => {
     if (graphQLErrors) {
-      const {extensions, message} = graphQLErrors[0];
-      switch (extensions.code) {
-        case 'data-exception':
-          console.log('Data Exception : ', message);
-          break;
-        case 'validation-failed':
-          console.log('Validation Failed : ', message);
-          break;
-        case 'invalid-jwt':
-          console.log('Invalid JWT : ', message);
-          return new Observable(observer => {
-            refreshAccessToken()
-              .then(accessToken => {
-                operation.setContext(({headers}) => ({
-                  headers: {
-                    ...headers,
-                    Authorization: `Bearer ${accessToken}`,
-                  },
-                }));
-              })
-              .then(() => {
-                const subscriber = {
-                  next: observer.next.bind(observer),
-                  error: observer.error.bind(observer),
-                  complete: observer.complete.bind(observer),
-                };
-
-                // Retry last failed request
-                forward(operation).subscribe(subscriber);
-              })
-              .catch(error => {
-                // No refresh or client token available, we force user to login
-                observer.error(error);
-              });
-          });
-        default:
-          console.log(extensions.code, message);
-      }
+      const {message} = graphQLErrors[0];
+      console.log('GraphQL Error ', message);
     }
 
     if (networkError) {
-      try {
-        switch (networkError.extensions.code) {
-          case 'start-failed':
-            console.log('Start Failed : ', networkError.message);
-            return new Observable(observer => {
-              refreshAccessToken()
-                .then(accessToken => {
-                  operation.setContext(({headers}) => ({
-                    headers: {
-                      ...headers,
-                      Authorization: `Bearer ${accessToken}`,
-                    },
-                  }));
-                })
-                .then(() => {
-                  const subscriber = {
-                    next: observer.next.bind(observer),
-                    error: observer.error.bind(observer),
-                    complete: observer.complete.bind(observer),
-                  };
-
-                  // Retry last failed request
-                  forward(operation).subscribe(subscriber);
-                })
-                .catch(error => {
-                  // No refresh or client token available, we force user to login
-                  observer.error(error);
-                });
-            });
-          case 'validation-failed':
-            console.log('Validation Failed : ', networkError.message);
-            break;
-          default:
-            console.log(networkError.extensions.code);
-        }
-      } catch (error) {
-        console.log(error);
-      }
+      const {message} = networkError[0];
+      console.log('Network Error ', message);
     }
   },
 );
@@ -128,7 +56,7 @@ const makeApolloClient = () => {
       if (token) {
         return {
           headers: {
-            Authorization: token ? `Bearer ${token}` : '',
+            Authorization: token ? token : '',
           },
         };
       } else {
